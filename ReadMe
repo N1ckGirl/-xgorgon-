@@ -6,8 +6,9 @@ import hashlib
 import requests
 
 
-def get_token():
+def gettoken():
     url = 'http://163.44.158.19/xaxb7yp/login'
+    #联系xgorgon@tutanota.com开通
     name = 'xxxx'
     passwd = 'xxxx'
     ts = str(int(time.time()))
@@ -20,13 +21,11 @@ def get_token():
     }
     response = requests.post(url, data=body)
     text = response.text
-    text = text.replace('True', '"success"')
-    text = text.replace('False', '"error"')
     result = json.loads(text)
     return result['token']
 
 
-def sign_x_gorgon(url, stub, cookie, ts):
+def signxgorgon(url, stub, cookie, ts):
     xkronos = ts
     data = {
         'version': 650,
@@ -44,28 +43,6 @@ def sign_x_gorgon(url, stub, cookie, ts):
     x_gorgon = response.text
     print('x_gorgon: %s; xkronos: %s' % (x_gorgon, xkronos))
     return x_gorgon, str(xkronos)
-
-
-def feed():
-    ts = int(time.time())
-    ms = int(time.time() * 1000)
-    url = 'https://aweme.snssdk.com/aweme/v1/feed/?xxxxxxxxxxxxxxxxxxxxxxxxxx'
-    cookies = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-    x_gorgon, x_khronos = sign_x_gorgon(url, "", cookies, ts)
-    headers = {
-        'User-Agent': 'com.ss.android.ugc.aweme/650 (Linux; U; Android 8.1.0; zh_CN_#Hans;'
-                      ' Nexus 5X; Build/OPM7.181205.001; Cronet/58.0.2991.0)',
-        'sdk-version': '1',
-        'X-Khronos': str(ts),
-        "x_Gorgon" : x_gorgon
-        'X-Pods': '',
-        'X-SS-REQ-TICKET': str(ms),
-        'Host': 'aweme.snssdk.com',
-        'Cookie': cookies,
-    }
-    response = requests.get(url, headers=headers)
-    print(response.text)
-
 
 if __name__ == '__main__':
     feed()
