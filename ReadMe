@@ -1,49 +1,5 @@
-项目使用别人的抖音签名服务,xgorgon, 用于抖因协议项目
-
-import time
-import json
-import hashlib
-import requests
-
-
-def gettoken():
-    url = 'http://163.44.158.19/xaxb7yp/login'
-    #联系xgorgon@tutanota.com开通
-    name = 'xxxx'
-    passwd = 'xxxx'
-    ts = str(int(time.time()))
-    key = passwd + ts
-    key = hashlib.sha1(key.encode('utf-8')).hexdigest()
-    body = {
-        'name': name,
-        'ts': ts,
-        'key': key
-    }
-    response = requests.post(url, data=body)
-    text = response.text
-    result = json.loads(text)
-    return result['token']
-
-
-def signxgorgon(url, stub, cookie, ts):
-    xkronos = ts
-    data = {
-        'version': 650,
-        'url': url,
-        'os': 1,
-        'token': get_token(),
-        'cookies': cookie,
-        "sessionid": "",
-        "X-SS-STUB": stub,
-        'ts': xkronos
-    }
-    print(json.dumps(data).encode('utf-8'))
-    response = requests.post('http://163.44.158.19/xaxb7yp/dysign', data=json.dumps(data).encode('utf-8'),
-                           timeout=30)
-    x_gorgon = response.text
-    print('x_gorgon: %s; xkronos: %s' % (x_gorgon, xkronos))
-    return x_gorgon, str(xkronos)
-
-if __name__ == '__main__':
-    feed()
-
+项目使用别人签名服务,xgorgon:
+:抖音协议注册,
+:抖因协议爬虫
+备忘
+http://133.130.124.62/xaxby37yp/index
